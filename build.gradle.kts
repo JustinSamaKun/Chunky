@@ -6,13 +6,20 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+    withSourcesJar()
+}
+
 subprojects {
     plugins.apply("java-library")
     plugins.apply("maven-publish")
     plugins.apply("com.github.johnrengelman.shadow")
 
     group = "${project.property("group")}"
-    version = "${project.property("version")}.${commitsSinceLastTag()}"
+    version = "${project.property("version")}"
 
     repositories {
         mavenCentral()

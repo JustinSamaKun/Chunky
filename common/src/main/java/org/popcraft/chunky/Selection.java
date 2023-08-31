@@ -13,8 +13,10 @@ public final class Selection {
     public static final double DEFAULT_CENTER_X = 0d;
     public static final double DEFAULT_CENTER_Z = 0d;
     public static final double DEFAULT_RADIUS = 500d;
+    public static final long DEFAULT_SKIP = 0;
     private final Chunky chunky;
     private final World world;
+    private final long skip;
     private final double centerX;
     private final double centerZ;
     private final double radiusX;
@@ -34,9 +36,10 @@ public final class Selection {
     private final int diameterRegionsX;
     private final int diameterRegionsZ;
 
-    private Selection(final Chunky chunky, final World world, final double centerX, final double centerZ, final double radiusX, final double radiusZ, final Parameter pattern, final String shape) {
+    private Selection(final Chunky chunky, final World world, long skip, final double centerX, final double centerZ, final double radiusX, final double radiusZ, final Parameter pattern, final String shape) {
         this.chunky = chunky;
         this.world = world;
+        this.skip = skip;
         this.centerX = centerX;
         this.centerZ = centerZ;
         this.radiusX = radiusX;
@@ -97,6 +100,10 @@ public final class Selection {
         return this.centerChunkX;
     }
 
+    public long skip() {
+        return this.skip;
+    }
+
     public int centerChunkZ() {
         return this.centerChunkZ;
     }
@@ -144,6 +151,7 @@ public final class Selection {
     public static final class Builder {
         private final Chunky chunky;
         private World world;
+        private long skip = DEFAULT_SKIP;
         private double centerX = DEFAULT_CENTER_X;
         private double centerZ = DEFAULT_CENTER_Z;
         private double radiusX = DEFAULT_RADIUS;
@@ -158,6 +166,11 @@ public final class Selection {
 
         public Builder world(final World world) {
             this.world = world;
+            return this;
+        }
+
+        public Builder skip(final long skip) {
+            this.skip = skip;
             return this;
         }
 
@@ -221,7 +234,7 @@ public final class Selection {
         }
 
         public Selection build() {
-            return new Selection(chunky, world, centerX, centerZ, radiusX, radiusZ, pattern, shape);
+            return new Selection(chunky, world, skip, centerX, centerZ, radiusX, radiusZ, pattern, shape);
         }
     }
 }

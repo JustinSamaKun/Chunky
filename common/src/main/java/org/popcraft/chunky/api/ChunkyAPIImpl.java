@@ -42,7 +42,7 @@ public class ChunkyAPIImpl implements ChunkyAPI {
                 .shape(shape).center(centerX, centerZ)
                 .radiusX(radiusX).radiusZ(radiusZ)
                 .pattern(Parameter.of(pattern)).build();
-        final GenerationTask task = new GenerationTask(chunky, selection);
+        final GenerationTask task = new GenerationTask(chunky, selection, 0);
         chunky.getGenerationTasks().put(world, task);
         chunky.getScheduler().runTask(task);
         return true;

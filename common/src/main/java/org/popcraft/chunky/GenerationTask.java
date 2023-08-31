@@ -37,20 +37,20 @@ public class GenerationTask implements Runnable {
     private long prevTime;
 
     public GenerationTask(final Chunky chunky, final Selection selection, final long count, final long time, final boolean cancelled) {
-        this(chunky, selection);
-        this.chunkIterator = ChunkIteratorFactory.getChunkIterator(selection, count);
-        this.finishedChunks.set(count);
+        this(chunky, selection, count);
         this.cancelled = cancelled;
         this.prevTime = time;
     }
 
-    public GenerationTask(final Chunky chunky, final Selection selection) {
+    public GenerationTask(final Chunky chunky, final Selection selection, long count) {
+        count = Math.max(selection.skip(), count);
         this.chunky = chunky;
         this.selection = selection;
-        this.chunkIterator = ChunkIteratorFactory.getChunkIterator(selection);
+        this.chunkIterator = ChunkIteratorFactory.getChunkIterator(selection, count);
         this.shape = ShapeFactory.getShape(selection);
         this.progress = new Progress(selection.world().getName());
         this.worldState = chunky.getRegionCache().getWorld(selection.world().getName());
+        this.finishedChunks.set(count);
     }
 
     private synchronized void update(final int chunkX, final int chunkZ, final boolean loaded) {

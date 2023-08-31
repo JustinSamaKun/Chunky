@@ -4,6 +4,7 @@ public final class CommandLiteral {
     public static final String BORDER = "border";
     public static final String CANCEL = "cancel";
     public static final String CENTER = "center";
+    public static final String SKIP = "skip";
     public static final String CENTER_X = "centerX";
     public static final String CENTER_Z = "centerZ";
     public static final String CHUNKY = "chunky";
